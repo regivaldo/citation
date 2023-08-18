@@ -3,10 +3,14 @@ import styled from 'styled-components'
 
 const Main = styled.article``
 
+const Container = styled.section``
+
 export default function FrontofficeTemplate() {
   return (
     <Main>
-      <Outlet />
+      <Container>
+        <Outlet />
+      </Container>
     </Main>
   )
 }
