@@ -1,7 +1,8 @@
 export const color = {
   primary: '#1D8D98',
-  second: '#CFAD3D',
-  highlight: '#EE6855',
+  second: '#EE6855',
+  highlight: '#CFAD3D',
+  border: '#cccccc',
 }
 
 export const background = {
@@ -22,7 +23,7 @@ export const fontWeight = {
 }
 
 export const fontFamily = {
-  default: `'Inter', sans-serif;`,
+  default: `'Inter', sans-serif`,
   highlight: `'Caveat', cursive`,
 }
 
