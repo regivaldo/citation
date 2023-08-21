@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 import { background, color } from './ui/variables'
 
-const Header = styled.header`
+const Header = styled.form`
   position: sticky;
   display: flex;
   top: 0;
