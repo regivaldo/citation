@@ -89,7 +89,6 @@ export default function HomePage() {
           citations.map((item) => {
             return (
               <Item key={item.id}>
-                <DateFormatted seconds={item.date?.seconds} />
                 <Text>{item.text}</Text>
                 <Signature>{item.signature}</Signature>
               </Item>
