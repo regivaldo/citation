@@ -15,7 +15,6 @@ import ICitation from '../models/ICitation'
 import { getAll, post } from '../services/CitationService'
 import getPeoples from '../services/PeopleService'
 import IPeople from '../models/IPeople'
-import DateFormatted from '../components/DateFormatted'
 
 export default function HomePage() {
   const limit = 1500
