@@ -41,6 +41,7 @@ export default function HomePage() {
     const sending = post(text, name)
     sending
       .then(() => {
+        setUsed(0)
         getAll(setCitations)
       })
       .catch(() => {})
