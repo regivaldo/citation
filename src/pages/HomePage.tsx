@@ -12,15 +12,20 @@ import Item from '../components/Item'
 import Text from '../components/Text'
 import People from '../components/People'
 import ICitation from '../models/ICitation'
-import getAll from '../services/CitationService'
+import { getAll, post } from '../services/CitationService'
+import getPeoples from '../services/PeopleService'
+import IPeople from '../models/IPeople'
+import DateFormatted from '../components/DateFormatted'
 
 export default function HomePage() {
   const limit = 1500
   const [used, setUsed] = useState<number>(0)
-  const [citation, setCitation] = useState<ICitation[]>()
+  const [citations, setCitations] = useState<ICitation[]>()
+  const [peoples, setPeoples] = useState<IPeople[]>()
 
   useEffect(() => {
-    getAll(setCitation)
+    getAll(setCitations)
+    getPeoples(setPeoples)
   }, [])
 
   const counter = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,9 +36,17 @@ export default function HomePage() {
   const send = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const citation = event.target?.citation.value
-    const name = event.target?.name.value
-    console.log(citation, name)
+    const text = event.currentTarget.citation.value
+    const name = event.currentTarget.people.value
+
+    const sending = post(text, name)
+    sending
+      .then(() => {
+        getAll(setCitations)
+      })
+      .catch(() => {})
+
+    event.currentTarget.reset()
   }
 
   return (
@@ -58,21 +71,25 @@ export default function HomePage() {
           <People
             placeholder="Quem disse isso?"
             type="text"
-            name="name"
-            id="name"
+            name="people"
+            id="people"
             list="peoples"
           />
           <datalist id="peoples">
-            <option value="Regivaldo Silva" />
+            {peoples &&
+              peoples.map((p) => (
+                <option key={p.id} value={`${p.firstname} ${p.lastname}`} />
+              ))}
           </datalist>
           <Button>Enviar citação</Button>
         </AreaButton>
       </Header>
       <List>
-        {citation &&
-          citation.map((item) => {
+        {citations &&
+          citations.map((item) => {
             return (
-              <Item>
+              <Item key={item.id}>
+                <DateFormatted seconds={item.date?.seconds} />
                 <Text>{item.text}</Text>
                 <Signature>{item.signature}</Signature>
               </Item>
